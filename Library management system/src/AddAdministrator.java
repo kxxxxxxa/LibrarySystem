@@ -1,47 +1,47 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
-
-/*
- * 进行用户注册的页面
- * 
+/**
+ * 在管理员管理界面选着 增加管理员后，进入的界面
+ * 咋能家管理员条件和注册管理员一样
+ * Id:用户输入，但是不能有相同，而且只能是数字
+ * 姓名:不能为空
+ * 性别:必填，只能是男或女
+ * 年龄:必填，只能是数字而且限制在1-100
+ * 手机号码:必填，必须都是数字而且是11位
+ * 登录名称:必填，有字母、数字、特殊字符组成，不能以数字开头，长度在3-8位，而且不能有重复的登录名称。
+ * 登录密码:不能与登陆名称相同，而且必须是6-12位
+ * 状态:用户只有三种状态，1表示正常  2表示禁用  3表示离职，默认情况下用户状态为1。
+ * @author xubo
+ *
  */
-public class Register {
-	// 定义全局变量
-	static Scanner scanner3 = new Scanner(System.in);
-	static BufferedReader br;
+public class AddAdministrator {
 	static String s1, s2, s4, s6, s7;
 	static boolean s3;
 	static Integer s5;
-	static Map<String, RegisterPage> mrr = new LinkedHashMap<>();
-	static int Allcount = 0;
-
-	// 主函数调用子函数实现注册功能
-	public static void main(String[] args) throws IOException {
-		System.out.println("---------------------------------------注册管理员信息---------------------------------------");
-		File file = new File("D:\\Register.txt");
-		if (!file.isFile()) {
-			file.createNewFile();
+	static Scanner scanner3 = new Scanner(System.in);
+	static Scanner scanner = new Scanner(System.in);
+	static BufferedReader br;
+	public static void main(String[] args) {
+		System.out.println("---------------------------------------增加管理员操作---------------------------------------");
+		try {
+			addAdministrator();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		RegisterStart();
+		
 	}
-
-	// 开始注册的第一个子函数 用引用VerificationAccount(); 进行条件判断
-	public static void RegisterStart() throws IOException {
+	public static void addAdministrator() throws IOException {
 		char[] ch;
 		Scanner scanner = new Scanner(System.in);
 		Scanner scanner1 = new Scanner(System.in);
@@ -61,12 +61,10 @@ public class Register {
 		System.out.print("电话号码：\r");
 		s7 = scanner2.nextLine();
 		VerificationAccount();
-
 	}
 
-	// 账号条件判断子函数
-	// 登录名称:必填，有字母、数字、特殊字符组成，不能以数字开头，长度在3-8位，而且不能有重复的登录名称。都成功进入下一项VerificationPassword();密码条件判断
 	public static void VerificationAccount() throws IOException {
+
 		char[] ch2 = null;
 		int count = 0;
 		int count1 = 0;
@@ -74,7 +72,6 @@ public class Register {
 		int count3 = 0;
 		int count4 = 0;
 		int count5 = 0;
-		// 从文本中读取数据 和条件进行匹配 都匹配成功进入下一项 VerificationPassword();
 		br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
 		String ss, ss1 = "", sss3;
 		String[] ss2 = null;
@@ -91,10 +88,10 @@ public class Register {
 			if (s1.length() > 8 || s1.length() < 3) {
 				System.out.println(1);
 				System.out.println("用户名长度在3-8位");
-				System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
+				System.out.println("添加失败! 重新添加输入1               返回上一层输入2              退出输入3");
 				sss3 = scanner3.nextLine();
 				if (sss3.equals("1")) {
-					RegisterStart();
+					addAdministrator();
 					break;
 				} else if (sss3.equals("2")) {
 					new InitialInterface();
@@ -107,11 +104,11 @@ public class Register {
 				break;
 			}
 			if (s1.equals(ss2[i])) {
-				System.out.println("用户名已被注册");
-				System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
+				System.out.println("用户名已被添加");
+				System.out.println("添加失败! 重新添加输入1               返回上一层输入2              退出输入3");
 				sss3 = scanner3.nextLine();
 				if (sss3.equals("1")) {
-					RegisterStart();
+					addAdministrator();
 					break;
 				} else if (sss3.equals("2")) {
 					new InitialInterface();
@@ -129,10 +126,10 @@ public class Register {
 			for (int j = 0; j < ch1.length; j++) {
 				if (Character.isDigit(ch1[0])) {
 					System.out.println("登录名称首位不能使数字,登录名称用英文 数字 符号组成");
-					System.out.println("注册失败! 请重新注册请输入1              或返回上一层请输入2              退出请输入3");
+					System.out.println("添加失败! 重新添加输入1              或返回上一层输入2              退出输入3");
 					sss3 = scanner3.nextLine();
 					if (sss3.equals("1")) {
-						RegisterStart();
+						addAdministrator();
 						break;
 					} else if (sss3.equals("2")) {
 						new InitialInterface();
@@ -156,10 +153,10 @@ public class Register {
 		}
 		if (count1 == 0 || count2 == 0 || count3 == 0) {
 			System.out.println("登录名称首位不能使数字,登录名称用英文 数字 符号组成");
-			System.out.println("注册失败! 请重新注册请输入1              或返回上一层请输入2              退出请输入3");
+			System.out.println("添加失败! 重新添加输入1              或返回上一层输入2              退出输入3");
 			sss3 = scanner3.nextLine();
 			if (sss3.equals("1")) {
-				RegisterStart();
+				addAdministrator();
 			} else if (sss3.equals("2")) {
 				new InitialInterface();
 				InitialInterface.initialInterface();
@@ -171,7 +168,7 @@ public class Register {
 		}
 
 	}
-    //密码条件的判断   登录密码:不能与登陆名称相同，而且必须是6-12位 成功后进入下一项 VerificationTell();电话号码的判断
+
 	public static void VerificationPassword() throws IOException {
 		int count = 0;
 		br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
@@ -189,10 +186,10 @@ public class Register {
 			if (s2.length() > 12 || s2.length() < 6) {
 				System.out.println(1);
 				System.out.println("密码长度在6-12位");
-				System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
+				System.out.println("添加失败! 重新添加输入1               返回上一层输入2              退出输入3");
 				sss3 = scanner3.nextLine();
 				if (sss3.equals("1")) {
-					RegisterStart();
+					addAdministrator();
 					break;
 				} else if (sss3.equals("2")) {
 					new InitialInterface();
@@ -206,10 +203,10 @@ public class Register {
 			}
 			if (s2.equals(ss2[i])) {
 				System.out.println("密码域账号相同");
-				System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
+				System.out.println("添加失败! 重新添加输入1               返回上一层输入2              退出输入3");
 				sss3 = scanner3.nextLine();
 				if (sss3.equals("1")) {
-					RegisterStart();
+					addAdministrator();
 					break;
 				} else if (sss3.equals("2")) {
 					new InitialInterface();
@@ -228,14 +225,14 @@ public class Register {
 		}
 
 	}
-    //手机号码:必填，必须都是数字而且是11位，成功后进入下一项 VerificationName;姓名的判断
+
 	public static void VerificationTell() throws IOException {
 		if (s7.length() != 11) {
 			System.out.println("电话号码必须都是数字而且是11位");
-			System.out.println("注册失败! 请重新注册请输入1              或返回上一层请输入2              退出请输入3");
+			System.out.println("添加失败! 重新添加输入1              或返回上一层输入2              退出输入3");
 			String sss3 = scanner3.nextLine();
 			if (sss3.equals("1")) {
-				RegisterStart();
+				addAdministrator();
 			} else if (sss3.equals("2")) {
 				new InitialInterface();
 				InitialInterface.initialInterface();
@@ -246,14 +243,14 @@ public class Register {
 			VerificationName();
 		}
 	}
-    //姓名:不能为空，成功后进入下一项 VerificationAge();年龄的判断
+
 	public static void VerificationName() throws IOException {
 		if (s4.isEmpty()) {
 			System.out.println("名字不能为空");
-			System.out.println("注册失败! 请重新注册请输入1              或返回上一层请输入2              退出请输入3");
+			System.out.println("添加失败! 重新添加输入1              或返回上一层输入2              退出输入3");
 			String sss3 = scanner3.nextLine();
 			if (sss3.equals("1")) {
-				RegisterStart();
+				addAdministrator();
 			} else if (sss3.equals("2")) {
 				new InitialInterface();
 				InitialInterface.initialInterface();
@@ -264,14 +261,14 @@ public class Register {
 			VerificationAge();
 		}
 	}
-    //年龄:必填，只能是数字而且限制在1-100，成功后进入下一项 VerificationAddress()；住址的判断
+
 	public static void VerificationAge() throws IOException {
 		if (s5 > 100 || s5 < 1) {
 			System.out.println("年龄只能能是数字而且在1-100");
-			System.out.println("注册失败! 请重新注册请输入1              或返回上一层请输入2              退出请输入3");
+			System.out.println("添加失败! 重新添加输入1              或返回上一层输入2              退出输入3");
 			String sss3 = scanner3.nextLine();
 			if (sss3.equals("1")) {
-				RegisterStart();
+				addAdministrator();
 			} else if (sss3.equals("2")) {
 				new InitialInterface();
 				InitialInterface.initialInterface();
@@ -282,14 +279,14 @@ public class Register {
 			VerificationAddress();
 		}
 	}
-    //住址:不能为空，成功后进入下一项 dataStorage();
+
 	public static void VerificationAddress() throws IOException {
 		if (s6.isEmpty()) {
 			System.out.println("地址为空");
-			System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
+			System.out.println("添加失败! 重新添加输入1               返回上一层输入2              退出输入3");
 			String sss3 = scanner3.nextLine();
 			if (sss3.equals("1")) {
-				RegisterStart();
+				addAdministrator();
 			} else if (sss3.equals("2")) {
 				new InitialInterface();
 				InitialInterface.initialInterface();
@@ -300,13 +297,14 @@ public class Register {
 			dataStorage();
 		}
 	}
-    //都成功后注册成功 并把数据存储在文本中
+
 	public static void dataStorage() throws IOException {
+		Map<String, RegisterPage> mrr = new LinkedHashMap<>();
 		mrr.put(new RegisterPage().getId(), new RegisterPage(s1, s2, s3, s4, s5, s6, s7));
 		Collection<RegisterPage> coll = mrr.values();
 		for (RegisterPage registerPage : coll) {
-			System.out.println("注册成功");
-			System.out.println("请牢记您的ID码，这将是识别您的身份的唯一标识：" + registerPage.getId());
+			System.out.println("添加成功");
+			System.out.println("请牢记该账户的ID码，这将是识别该账号的身份的唯一标识：" + registerPage.getId());
 			try {
 				BufferedWriter bw = new BufferedWriter(
 						new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true)));
@@ -324,11 +322,14 @@ public class Register {
 		System.out.println("返回上一层请输入1              退出请输入2");
 		String sss3 = scanner3.nextLine();
 		if (sss3.equals("1")) {
-			new InitialInterface();
-			InitialInterface.initialInterface();
+			new AdministratorManagement();
+			AdministratorManagement.main(null);
 		} else if (sss3.equals("2")) {
 			System.out.println("谢谢使用");
 		}
+		
+
 	}
+
 
 }

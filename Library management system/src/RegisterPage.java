@@ -1,6 +1,12 @@
 import java.util.Arrays;
 import java.util.Random;
-
+/**
+ * 用户注册的构造函数
+ * ID 由数字 随机组成的6位数字
+ * type默认为1（正常）
+ * @author xubo
+ *
+ */
 public class RegisterPage {
 	private static String id=null;
 	private String logonName;
@@ -84,9 +90,9 @@ public class RegisterPage {
 	@Override
 	public String toString() {
 		if (type.equals("1")) {
-			type="����";
+			type="正常";
 		}
-		return "RegisterPage [id=" + id + ",logonName=" + logonName + ", pwd=" + pwd + ", gender=" + ((gender)?"��":"Ů") + ", name=" + name
+		return "RegisterPage [id=" + id + ",logonName=" + logonName + ", pwd=" + pwd + ", gender=" + ((gender)?"��":"Ů") + ", name=" + name
 				+ ", age=" + age + ", address=" + address + ", tell=" + tell + ", type=" + type + "]";
 	}
 	public static String getId() {

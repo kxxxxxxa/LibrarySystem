@@ -5,15 +5,20 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
-
+/**
+ * ç”¨æˆ·ç™»å½•ç•Œé¢
+ * @author xubo
+ *
+ */
 public class SignIn {
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("---------------------------------------ÓÃ»§µÇÂ¼---------------------------------------");
+		System.out.println("---------------------------------------ç”¨æˆ·ç™»å½•---------------------------------------");
 		signIn();
 	}
 	public static void signIn() throws IOException{
+		//å®šä¹‰å˜é‡
 		String s;
 		String ss;
 		ss = initcode();
@@ -22,6 +27,7 @@ public class SignIn {
 		int c = 0;
 		String ss1 = null;
 		String[] ss2;
+		//è¯»å–æ–‡æœ¬ä¸­çš„æ–‡ä»¶ ä¹‹åä¸è¾“å…¥æ•°æ®åŒ¹é…
 		BufferedReader be = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
 		while ((s = be.readLine()) != null) {
 			if (s.indexOf("logonName=") != -1 && s.indexOf(", pwd=") != -1) {
@@ -33,14 +39,15 @@ public class SignIn {
 				ss1 += str + " ";
 			}
 		}
-		System.out.print("µÇÂ¼Ãû³Æ£º");
+		System.out.print("ç™»å½•åç§°ï¼š");
 		String s0 = scanner.nextLine();
-		System.out.print("ÃÜÂë£º");
+		System.out.print("å¯†ç ï¼š");
 		String s1 = scanner.nextLine();
-		System.out.println("ÑéÖ¤Âë£º" + ss);
-		System.out.print("ÇëÊäÈëÑéÖ¤Âë£º");
+		System.out.println("éªŒè¯ç ï¼š" + ss);
+		System.out.print("è¯·è¾“å…¥éªŒè¯ç ï¼š");
 		String s2 = scanner.nextLine();
-		System.out.println("ÑéÖ¤µÇÂ¼Ä£Ê½ ");
+		System.out.println("éªŒè¯ç™»å½•æ¨¡å¼ ");
+		// ä¸ä½ çš„è´¦å·å¯†ç å¯¹æ¯” æ˜¯å¦åŒ¹é…  åŒ¹é…æˆåŠŸ ç™»å½• å¦åˆ™ é‡æ–°è¾“å…¥  æˆ–è€…é€€å‡º
 		ss2 = ss1.split(" ");
 		for (int i = 0; i < ss2.length; i++) {
 			if (s0.equals(ss2[i])) {
@@ -52,21 +59,21 @@ public class SignIn {
 		}
 		if (count >= 2) {
 			if (s2.equals(ss)) {
-				System.out.println("µÇÂ½³É¹¦");
+				System.out.println("ç™»é™†æˆåŠŸ");
 			}
 		}
 		else {
-			System.out.println("µÇÂ¼Ê§°Ü! ÇëÖØĞÂÊäÈëÕËºÅÃÜÂë");
-			System.out.println("Íü¼ÇÃÜÂëÇëÊäÈë3");
-			System.out.println("ÍË³öÇëÊäÈë4");
-			System.out.println("·µ»ØÉÏÒ»²ãÇëÊäÈë5");
+			System.out.println("ç™»å½•å¤±è´¥! è¯·é‡æ–°è¾“å…¥è´¦å·å¯†ç ");
+			System.out.println("å¿˜è®°å¯†ç è¯·è¾“å…¥3");
+			System.out.println("é€€å‡ºè¯·è¾“å…¥4");
+			System.out.println("è¿”å›ä¸Šä¸€å±‚è¯·è¾“å…¥5");
 			String sss3=scanner.nextLine();
 			if (sss3.equals("3")) {
 				new ForgotPwd();
 				ForgotPwd.forgotPwd();
 			}
 			else if (sss3.equals("4")) {
-				System.out.println("³ÌĞòÍË³ö");
+				System.out.println("ç¨‹åºé€€å‡º");
 			}
 			else if (sss3.equals("5")) {
 				
@@ -78,7 +85,7 @@ public class SignIn {
 		}
 
 	}
-
+	//ç”Ÿæˆ6ä½ä¸é‡å¤ç”± æ•°å­—å’Œå­—æ¯ç»„æˆçš„éªŒè¯ç 
 	public static String initcode() {
 		Random random = new Random();
 		int count = 0;

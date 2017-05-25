@@ -1,16 +1,21 @@
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * åˆå§‹åŒ–ç•Œé¢
+ * ç”¨æˆ·è¿›è¡Œé€‰ç€
+ * @author xubo
+ *
+ */
 public class InitialInterface {
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
-		System.out.println("---------------------------------------»¶Ó­À´µ½Í¼Êé¹İ¹ÜÀíÏµÍ³---------------------------------------");
+		System.out.println("---------------------------------------åˆå§‹åŒ–ç•Œé¢---------------------------------------");
 		initialInterface();
 	}
 	public static void initialInterface() throws IOException{
-		System.out.println("1   µÇÂ¼                                               2   ×¢²á                                               3   ÍË³ö");
-		System.out.print("ÇëÊäÈëÊı×Ö£º");
+		System.out.println("                   ç™»å½•è¾“å…¥1                   æ³¨å†Œè¾“å…¥2                   é€€å‡ºè¾“å…¥3");
+		System.out.print("è¯·æ‚¨è¾“å…¥ï¼š");
 		String s=scanner.nextLine();
 		if (s.equals("1")) {
 			new SignIn();
@@ -22,7 +27,7 @@ public class InitialInterface {
 			Register.RegisterStart();
 		}
 		else if (s.equals("3")) {
-			System.out.println("Ğ»Ğ»Ê¹ÓÃ");
+			System.out.println("è°¢è°¢ä½¿ç”¨");
 		}
 	}
 
