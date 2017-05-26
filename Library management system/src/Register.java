@@ -75,7 +75,7 @@ public class Register {
 		int count4 = 0;
 		int count5 = 0;
 		// 从文本中读取数据 和条件进行匹配 都匹配成功进入下一项 VerificationPassword();
-		br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
+		br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt"),"utf-8"));
 		String ss, ss1 = "", sss3;
 		String[] ss2 = null;
 		while ((ss = br.readLine()) != null) {
@@ -174,7 +174,7 @@ public class Register {
     //密码条件的判断   登录密码:不能与登陆名称相同，而且必须是6-12位 成功后进入下一项 VerificationTell();电话号码的判断
 	public static void VerificationPassword() throws IOException {
 		int count = 0;
-		br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
+		br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt"),"utf-8"));
 		String ss, ss1 = "", sss3;
 		String[] ss2 = null;
 		while ((ss = br.readLine()) != null) {
@@ -309,7 +309,7 @@ public class Register {
 			System.out.println("请牢记您的ID码，这将是识别您的身份的唯一标识：" + registerPage.getId());
 			try {
 				BufferedWriter bw = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true)));
+						new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true),"utf-8"));
 				bw.newLine();
 				bw.write(registerPage.toString());
 				bw.flush();
@@ -321,6 +321,7 @@ public class Register {
 				e.printStackTrace();
 			}
 		}
+		mrr.clear();
 		System.out.println("返回上一层请输入1              退出请输入2");
 		String sss3 = scanner3.nextLine();
 		if (sss3.equals("1")) {

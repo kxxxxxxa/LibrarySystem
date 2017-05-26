@@ -85,7 +85,7 @@ public class ForgotPwd {
 		String sss0 = scanner.nextLine();
 		String sstr1 = null,sstr = null;
 		int count01=0;
-		be = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
+		be = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt"),"utf-8"));
 		while ((s1 = be.readLine()) != null) {
 			if (s1.indexOf("logonName=") != -1 && s1.indexOf(", pwd=") != -1) {
 				sstr1 = s1.substring(s1.indexOf("logonName=") + 10, s1.indexOf(", pwd="));

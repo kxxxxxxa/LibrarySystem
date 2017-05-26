@@ -92,7 +92,7 @@ public class RegisterPage {
 		if (type.equals("1")) {
 			type="正常";
 		}
-		return "RegisterPage [id=" + id + ",logonName=" + logonName + ", pwd=" + pwd + ", gender=" + ((gender)?"��":"Ů") + ", name=" + name
+		return "RegisterPage [id=" + id + ",logonName=" + logonName + ", pwd=" + pwd + ", gender=" + ((gender)?"男":"女") + ", name=" + name
 				+ ", age=" + age + ", address=" + address + ", tell=" + tell + ", type=" + type + "]";
 	}
 	public static String getId() {
