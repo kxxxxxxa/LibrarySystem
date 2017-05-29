@@ -27,6 +27,13 @@ public class DeleteAdministrator {
 		System.out.println("---------------------------------------删除管理员操作---------------------------------------");
 		System.out.println("                 删除请输入1               返回上一层请输入2                退出请输入3");
 		String sss3 = scanner1.nextLine();
+		char c=sss3.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new DeleteAdministrator().main(null);;
+			
+		}
 		if (sss3.equals("1")) {
 			deleteAdministrator();
 		}

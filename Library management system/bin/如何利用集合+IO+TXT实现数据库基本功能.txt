@@ -1,0 +1,127 @@
+通过这次的作业，如何通过不用数据库就能进行对数据的增,删,改,查和存储提取数据。
+首先我想到的是通过集合，能把我们需要的数据进行临时的存储和提取。但是关闭之后数据就全没了。
+所以我想通过一些方法来实现数据库的基本功能
+
+首先要建一个文本来存放数据
+File file = new File("D:\\Register.txt");
+	if (!file.isFile()) {
+		file.createNewFile();
+	}
+先判断它是否存在 不存在再新建
+
+之后要用到IO中的字符流
+现有字节转变再字符流   再用带有缓冲器的Buffered
+从文本中读取数据     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt"))); 
+while ((s = br.readLine()) != null) {    //只要不为空，就一直读取
+			if (s.indexOf("id=") != -1 && s.indexOf(",logonName=") != -1) {
+				str = s.substring(s.indexOf("id=") + 3, s.indexOf(",logonName="));
+				if (s.indexOf("logonName=") != -1 && s.indexOf(", pwd=") != -1) {
+					str1 = s.substring(s.indexOf("logonName=") + 10, s.indexOf(", pwd="));
+				}
+			}
+			if (s0.equals(str1) && s1.equals(str)) {
+				str2 = s;
+				count++;
+			} else {
+				list.add(s);
+			}
+		}
+
+把数据写入到文本中   BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true),"utf-8"));
+                        bw.newLine(); //必须换行
+			bw.write(registerPage.toString());//将需要的数据进行写入
+			bw.flush();//刷新
+
+为什么要用到 带偶缓冲的I/O : 因为带有缓冲的I/O中 有一个方法 br.readline(), 这个方法是只读一个文本行 ，否则返回null；这样一来就简单很多
+如果不这样写 那么你写入的的数据 它会把你的数据一行就整个都出来。要不就增加 反义字符标志位，这样的工作量就大大增加。
+所以用BufferedWriter bw; 没写入一行数据之前都要换行，保证数据可用和整洁性;
+
+如何实现增删改查
+
+1，增加
+BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
+		String ss, ss1 = "", sss3;
+		String[] ss2 = null;
+		while ((ss = br.readLine()) != null) {
+			if (ss.indexOf("logonName=") != -1 && ss.indexOf(", pwd=") != -1) {
+				String str = ss.substring(ss.indexOf("logonName=") + 10, ss.indexOf(", pwd="));
+				ss1 += str + " ";
+			}
+		}
+到对应的文本中先读取数据，和你输入的数据进行各种判断 都验证成功后
+BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true)));//这个true很关键，没有它你的吓一跳数据将会覆盖之前的数据
+				bw.newLine();
+				bw.write(registerPage.toString());
+				bw.flush();
+再进行数据的导入
+
+2，删除
+System.out.print("输入删除用户ID码：");
+		String s1 = scanner.nextLine();
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt"),"utf-8"));
+		while ((s = br.readLine()) != null) {
+			if (s.indexOf("id=") != -1 && s.indexOf(",logonName=") != -1) {
+				str = s.substring(s.indexOf("id=") + 3, s.indexOf(",logonName="));
+			}
+			if (s1.equals(str)) {
+				count++;
+			} else {
+				list.add(s);
+			}
+		} 
+通过ID码进行删除  当你输入的和数据匹配成功后在进行删除，否者提示你重新输入和其他提示，除了和你匹配成功的数据，其余的数据临时放在list集合当中
+都完成后 在进行对原数据的覆盖，再这里
+BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt",)));不需要true。
+
+3，修改
+和之前一样先通过ID码 和你的输入的ID码匹配得到要修改的数据，但是这次的数据要修改完放回去。
+要用到 s.substring(); 把你输入的数据拼接到你要修改的地方。
+str2 = str2.substring(0, (str2.indexOf("name=") + 4)) + sss0+ str2.substring(str2.indexOf(", age="), str2.indexOf("正常") + 3);
+然后再放回去
+注意：现在必须使用两个集合，因为如果只有一个集合，数据的存取会重复，如果.clear()清空之前list中存放的数据就没了，就又得重新从头执行一边。
+所以 我们要使用到第二个集合             list1.addAll(list);         在修改之前把数据克隆到list1中 再来list1进行存储，清空。
+str2 = str2.substring(0, (str2.indexOf("pwd=") + 4)) + sss0+ str2.substring(str2.indexOf(", gender"), str2.indexOf("正常") + 3);
+				list1.add(str2);
+                          //注意这里不要加true 因为list1已经把之前所有除了修改的数据克隆过来，现在再把修改完的数据加进去。现在的list1是一个完整的数据内容。
+				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt")));
+				for (String string : list1) {
+					bw.newLine();
+					bw.write(string);
+					bw.flush();
+				}
+				list1.clear();//清空list1
+这样list 中的数据得到了保护不会丢失。等到在修改这条数据的其他内容时。再把 list1.addAll(list);  list 中的数据给 list1 执行操作；
+
+4，查询
+查询通过 用户名或ID码查询 系按提示用户  通过ID码查找请输入1         通过账号查找请输入2
+
+
+System.out.println("                            通过ID码查找请输入1         通过账号查找请输入2");
+		String str = scanner.nextLine();
+		System.out.print("用户ID码：");
+		String s1 = scanner.nextLine();
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
+		if (!str.isEmpty()) {
+			
+		
+		while ((s = br.readLine()) != null) {
+			if (s.indexOf("id=") != -1 && s.indexOf(",logonName=") != -1) {
+				String sss= s.substring(s.indexOf("id=") + 3, s.indexOf(",logonName="));
+				ss+=sss+" ";
+			} 
+			else {
+				ss += s + " ";
+			}
+			if (s.indexOf("logonName=") != -1 && s.indexOf(", pwd") != -1) {
+				String sss= s.substring(s.indexOf("logonName=") + 10, s.indexOf(", pwd"));
+				ss+=sss+" ";
+			}
+
+这里只要判断不为空就和文本中的数据进行 匹配 只要匹配上了 就输出这条数据。
+
+注意这个的每个增删改查，所需要的条件必须加上判断验证通过后 才能进行存储操作
+
+
+图书馆的增删改查和这个一样。没什么好说的。
+Over！
+

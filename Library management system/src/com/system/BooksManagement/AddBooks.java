@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.system.AdministratorManagement.AdministratorManagement;
+import com.system.AdministratorManagement.QueryAdministrator;
 /**
  * 验证要求:
 1.	id唯一
@@ -37,6 +38,13 @@ public class AddBooks {
 		System.out.println("---------------------------------------增加图书操作---------------------------------------");
 		System.out.println("                 继续操作请输入1               返回上一层请输入2                退出请输入3");
 		String sss3 = scanner1.nextLine();
+		char c=sss3.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new AddBooks().main(null);;
+			
+		}
 		if (sss3.equals("1")) {
 			addBooks();
 		}
@@ -118,7 +126,7 @@ public class AddBooks {
 			}
 		}
 		System.out.println(count);
-		if (s2.isEmpty()&&(count1>2||count>5)) {
+		if (!(s2.isEmpty()&&count1<2&&count<5)) {
 			System.out.println("作者名不能为空");
 			System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
 			sss3 = scanner3.nextLine();

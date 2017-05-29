@@ -10,6 +10,8 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import com.system.BooksManagement.QueryBooks;
 /**
  * 忘记密码后的操作
  * @author xubo
@@ -37,7 +39,18 @@ public class ForgotPwd {
 		System.out.print("请输入：");
 		Scanner scanner =new Scanner(System.in);
 		String s = scanner.nextLine();
+		char c=s.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new ForgotPwd().main(null);;
+			
+		}
 		if (s.equals("1")) {
+			File file = new File("D:\\Register.txt");
+			if (!file.isFile()) {
+				file.createNewFile();
+			}
 			forgotPwd();
 		}
 		if (s.equals("2")) {
@@ -90,7 +103,7 @@ public class ForgotPwd {
 				forgotPwd();
 			} else if (sss3.equals("2")) {
 				new SignIn();
-				SignIn.signIn();
+				SignIn.main(null);
 			} else if (sss3.equals("3")) {
 				System.out.println("谢谢使用");
 			}
@@ -134,6 +147,7 @@ public class ForgotPwd {
 		list.add(str2);
 		bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt")));
 		for (String string : list) {
+			bw.newLine();
 			bw.write(string);
 			bw.flush();
 		}
@@ -142,7 +156,7 @@ public class ForgotPwd {
 		String sss3 = scanner1.nextLine();
 		if (sss3.equals("1")) {
 			new SignIn();
-			SignIn.signIn();
+			SignIn.main(null);
 		} else if (sss3.equals("2")) {
 			System.out.println("谢谢使用");
 		}

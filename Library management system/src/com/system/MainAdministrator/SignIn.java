@@ -1,5 +1,6 @@
 package com.system.MainAdministrator;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +25,18 @@ public class SignIn {
 		System.out.println("                         退出输入3                                              ");
 		System.out.print("请输入：");
 		String s = scanner.nextLine();
+		char c=s.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new SignIn().main(null);;
+			
+		}
 		if (s.equals("1")) {
+			File file = new File("D:\\Register.txt");
+			if (!file.isFile()) {
+				file.createNewFile();
+			}
 			signIn();
 		}
 		if (s.equals("2")) {
@@ -43,7 +55,7 @@ public class SignIn {
 		int count = 0;
 		char[] ch;
 		int c = 0;
-		String ss1 = null;
+		String ss1 = null,ss3=null;
 		String[] ss2;
 		//读取文本中的文件 之后与输入数据匹配
 		BufferedReader be = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
@@ -51,6 +63,9 @@ public class SignIn {
 			if (s.indexOf("logonName=") != -1 && s.indexOf(", pwd=") != -1) {
 				String str = s.substring(s.indexOf("logonName=") + 10, s.indexOf(", pwd="));
 				ss1 += str + " ";
+			}
+			else {
+				ss1+=s+" ";
 			}
 			if (s.indexOf("pwd=") != -1 && s.indexOf(", gender") != -1) {
 				String str = s.substring(s.indexOf("pwd=") + 4, s.indexOf(", gender"));
@@ -78,26 +93,27 @@ public class SignIn {
 		if (count >= 2) {
 			if (s2.equals(ss)) {
 				System.out.println("登陆成功");
+			new TwoSelectThePage();
+			TwoSelectThePage.main(null);
 			}
 		}
 		else {
 			System.out.println("登录失败! 请重新输入账号密码");
-			System.out.println("忘记密码请输入3");
-			System.out.println("退出请输入4");
-			System.out.println("返回上一层请输入5");
+			System.out.print("重新输入请输入1               忘记密码请输入2          返回上一层请输入3             退出请输入4");
 			String sss3=scanner.nextLine();
-			if (sss3.equals("3")) {
+			if (sss3.equals("1")) {
+				signIn();
+			}
+			if (sss3.equals("2")) {
 				new ForgotPwd();
 				ForgotPwd.forgotPwd();
 			}
-			else if (sss3.equals("4")) {
+			if (sss3.equals("3")) {
+				new SignIn();
+				SignIn.main(null);
+			}
+			if (sss3.equals("4")) {
 				System.out.println("程序退出");
-			}
-			else if (sss3.equals("5")) {
-				
-			}
-			else {
-				signIn();
 			}
 			
 		}

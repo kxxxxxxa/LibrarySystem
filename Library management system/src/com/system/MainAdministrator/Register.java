@@ -40,6 +40,13 @@ public class Register {
 		System.out.print("请输入：");
 		Scanner scanner =new Scanner(System.in);
 		String s = scanner.nextLine();
+		char c=s.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new Register().main(null);;
+			
+		}
 		if (s.equals("1")) {
 			File file = new File("D:\\Register.txt");
 			if (!file.isFile()) {
@@ -323,8 +330,7 @@ public class Register {
 			System.out.println("注册成功");
 			System.out.println("请牢记您的ID码，这将是识别您的身份的唯一标识：" + registerPage.getId());
 			try {
-				BufferedWriter bw = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true),"utf-8"));
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true),"utf-8"));
 				bw.newLine();
 				bw.write(registerPage.toString());
 				bw.flush();

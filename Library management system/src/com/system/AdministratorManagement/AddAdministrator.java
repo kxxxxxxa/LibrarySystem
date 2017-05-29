@@ -1,5 +1,6 @@
 package com.system.AdministratorManagement;
 
+import com.system.BooksManagement.BooksManagement;
 import com.system.MainAdministrator.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,6 +43,13 @@ public class AddAdministrator {
 		System.out.println("---------------------------------------增加管理员操作---------------------------------------");
 		System.out.println("                 继续操作请输入1               返回上一层请输入2                退出请输入3");
 		String sss3 = scanner1.nextLine();
+		char c=sss3.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new AddAdministrator().main(null);;
+			
+		}
 		if (sss3.equals("1")) {
 			addAdministrator();
 		}
@@ -319,8 +327,7 @@ public class AddAdministrator {
 			System.out.println("添加成功");
 			System.out.println("请牢记该账户的ID码，这将是识别该账号的身份的唯一标识：" + registerPage.getId());
 			try {
-				BufferedWriter bw = new BufferedWriter(
-						new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true)));
+				BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true)));
 				bw.newLine();
 				bw.write(registerPage.toString());
 				bw.flush();
@@ -332,12 +339,16 @@ public class AddAdministrator {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("返回上一层请输入1              退出请输入2");
+		System.out.println("继续添加请输入1                返回上一层请输入2              退出请输入3");
 		String sss3 = scanner3.nextLine();
 		if (sss3.equals("1")) {
+			new AddAdministrator();
+			AddAdministrator.main(null);
+		}
+		if (sss3.equals("2")) {
 			new AdministratorManagement();
 			AdministratorManagement.main(null);
-		} else if (sss3.equals("2")) {
+		} else if (sss3.equals("3")) {
 			System.out.println("谢谢使用");
 		}
 		

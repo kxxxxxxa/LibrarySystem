@@ -1,4 +1,5 @@
 package com.system.MainAdministrator;
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 /**
@@ -18,9 +19,20 @@ public class InitialInterface {
 		System.out.println("                   登录输入1                   注册输入2                   退出输入3");
 		System.out.print("请您输入：");
 		String s=scanner.nextLine();
+		char c=s.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new InitialInterface().main(null);;
+			
+		}
 		if (s.equals("1")) {
+			File file = new File("D:\\Register.txt");
+			if (!file.isFile()) {
+				file.createNewFile();
+			}
 			new SignIn();
-			SignIn.signIn();
+			SignIn.main(null);
 		}
 		else if (s.equals("2")) {
 			new Register();

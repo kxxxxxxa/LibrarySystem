@@ -33,6 +33,13 @@ public class DeleteBooks {
 		System.out.println("---------------------------------------增加图书操作---------------------------------------");
 		System.out.println("          继续操作请输入1               返回上一层请输入2                退出请输入3");
 		String sss3 = scanner1.nextLine();
+		char c=sss3.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new DeleteBooks().main(null);;
+			
+		}
 		if (sss3.equals("1")) {
 			deleteBooks();
 		}

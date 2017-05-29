@@ -36,6 +36,13 @@ public class ModifyAdministrator {
 		System.out.println("---------------------------------------修改管理员操作---------------------------------------");
 		System.out.println("                 修改请输入1               返回上一层请输入2                退出请输入3");
 		String sss3 = scanner1.nextLine();
+		char c=sss3.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>3) {
+			System.out.println("输入有误");
+			new ModifyAdministrator().main(null);;
+			
+		}
 		if (sss3.equals("1")) {
 			forgotPwd();
 		}
@@ -66,6 +73,7 @@ public class ModifyAdministrator {
 			}
 		}
 		if (count != 0) {
+			list.clear();
 			System.out.println("ID码验证成功");
 			System.out.println("原始信息：" + str2);
 			System.out.println("重新设置输入1               返回上一层请输入2              退出请输入3");
@@ -80,10 +88,10 @@ public class ModifyAdministrator {
 			}
 		} else {
 			System.out.println("验证错误： 账号与ID码不匹配");
-			System.out.println("重新设置输入1               返回上一层请输入2              退出请输入3");
+			System.out.println("重新输入ID1               返回上一层请输入2              退出请输入3");
 			String sss3 = scanner1.nextLine();
 			if (sss3.equals("1")) {
-				resetPassword();
+				forgotPwd();
 			} else if (sss3.equals("2")) {
 				new AdministratorManagement();
 				AdministratorManagement.main(null);

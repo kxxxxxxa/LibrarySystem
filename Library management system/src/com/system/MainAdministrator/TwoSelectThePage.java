@@ -18,6 +18,13 @@ public class TwoSelectThePage {
 		System.out.println("                         返回上一层输入3                         退出输入4                                  ");
 		System.out.print("请输入：");
 		String s = scanner.nextLine();
+		char c=s.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>4) {
+			System.out.println("输入有误");
+			new TwoSelectThePage().main(null);;
+			
+		}
 		if (s.equals("1")) {
 			new AdministratorManagement();
 			AdministratorManagement.main(null);

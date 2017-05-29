@@ -1,0 +1,97 @@
+首先
+一 : 初始化界面    提供    1登录   2注册   3退出    3个选着。
+
+选着1登录后到达 登录界面
+登录界面提供三个选着   1登录输入    2返回上一层      3退出
+
+
+选着2注册到达注册界面
+注册界面也提供三个选着  1注册       2返回上一层      3退出
+
+
+二 注册
+
+选着1进入注册界面
+首先判断是否有存放注册信息的文本，如果没有会自动创建一个
+File file = new File("D:\\Register.txt");
+if (!file.isFile()) {
+file.createNewFile();
+}
+然后进行  注册信息的输入
+描述:注册需要用户输入所有的必须的用户信息。
+Id:用户输入，但是不能有相同，而且只能是数字
+姓名:不能为空
+性别:必填，只能是男或女
+年龄:必填，只能是数字而且限制在1-100
+手机号码:必填，必须都是数字而且是11位
+登录名称:必填，有字母、数字、特殊字符组成，不能以数字开头，长度在3-8位，而且不能有重复的登录名称。
+		登录密码:不能与登陆名称相同，而且必须是6-12位
+		状态:用户只有三种状态，1表示正常  2表示禁用  3表示离职，默认情况下用户状态为1。
+所有验证必须通过后才能进行下一项
+
+提示所有验证成功后，数据进行存储；
+mrr.put(new RegisterPage().getId(), new RegisterPage(s1, s2, s3, s4, s5, s6, s7));
+		Collection<RegisterPage> coll = mrr.values();
+		for (RegisterPage registerPage : coll) {                          
+			System.out.println("注册成功");
+			System.out.println("请牢记您的ID码，这将是识别您的身份的唯一标识：" + registerPage.getId());
+			try {
+				BufferedWriter bw = new BufferedWriter(
+						new OutputStreamWriter(new FileOutputStream("D:\\Register.txt", true),"utf-8"));
+				bw.newLine();
+				bw.write(registerPage.toString());
+				bw.flush();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		mrr.clear();
+
+并进行ID码  提示用户牢记ID码
+
+提示用户   返回上一层 进行 登录
+
+三 :登录
+
+进入登录页面后选着1进行登录，输入账号，密码和验证码  账号密码回合文本中的数据进行匹配。
+//读取文本中的文件 之后与输入数据匹配
+匹配数据	BufferedReader be = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\Register.txt")));
+		while ((s = be.readLine()) != null) {
+			if (s.indexOf("logonName=") != -1 && s.indexOf(", pwd=") != -1) {
+				String str = s.substring(s.indexOf("logonName=") + 10, s.indexOf(", pwd="));
+				ss1 += str + " ";
+			}
+			else {
+				ss1+=s+" ";
+			}
+			if (s.indexOf("pwd=") != -1 && s.indexOf(", gender") != -1) {
+				String str = s.substring(s.indexOf("pwd=") + 4, s.indexOf(", gender"));
+				ss1 += str + " ";
+			}
+		}
+匹配成功并且验证码输入成功
+进入到下一个界面 管理员选着管理界面
+
+如输入失败 这回跳转到 忘记密码界面
+
+四 :忘记密码
+
+跳到忘记密码界面后 提示用户    进行 用户名+ID码 的验证 验证成功后，
+将原先的 密码实现给用户 并建议用户 进行密码的修改
+修改 密码 使用的是 提取字段的方法；
+
+五 :管理员选着管路界面
+
+提示用户进行选着   1进行管理员管理     2进行图书管理     3返回上一层   4退出
+
+六 :管理员管理
+
+提示用户选着  1 显示所有管理员信息输入    2增加管理员输入   3删除管理员输入    4修改管理员输入     5查询管理员输入    6返回上一层输入   7退出输入
+
+七 :图书管理  
+
+提示用户选着  1 显示所有图书信息输入    2增加图书输入   3删除图书输入    4修改图书输入     5查询图书输入    6返回上一层输入   7退出输入

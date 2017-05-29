@@ -1,6 +1,7 @@
 package com.system.BooksManagement;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -35,18 +36,29 @@ public class BooksManagement {
 	static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
+		File file = new File("D:\\Registerbook.txt");
+		if (!file.isFile()) {
+			file.createNewFile();
+		}
 		System.out.println("---------------------------------------图书信息管理中心---------------------------------------");
 		System.out.println("\n");
 		System.out.println(
 				"                                   显示所有图书信息输入-----------------1                                   ");
 		System.out.println(
-				"                增加管理员输入2                                              删除管理员输入3                ");
+				"                增加图书输入2                                              删除图书输入3                ");
 		System.out.println(
-				"                修改管理员输入4                                              查询管理员输入5                ");
+				"                修改图书输入4                                              查询图书输入5                ");
 		System.out.println(
-				"                返回上一层输入6                                                        退出输入7                ");
+				"                返回上一层输入6                                             退出输入7                ");
 		System.out.print("请输入：");
 		String s = scanner.nextLine();
+		char c=s.charAt(0);
+		int i=(int)c-48;
+		if (!Character.isDigit(c)||i>7) {
+			System.out.println("输入有误");
+			new BooksManagement().main(null);;
+			
+		}
 		if (s.equals("1")) {
 			AllBook();
 		}
