@@ -73,7 +73,7 @@ public class AddBooks {
 		s5 = scanner2.nextLine();
 		char ch=s5.charAt(0);
 		int i=(int)(ch)-48;
-    	System.out.println(i);
+//    	System.out.println(i);
 		VerificationBooksName();
 	}
 
@@ -87,7 +87,7 @@ public class AddBooks {
 			if (ss.indexOf("bookName=") != -1 && ss.indexOf(",authorName") != -1) {
 				str = ss.substring(ss.indexOf("bookName=") + 9, ss.indexOf(",authorName"));
 			}
-			System.out.println(str);
+//			System.out.println(str);
 			if (s1.equals(str)) {
 				count++;
 				break;
@@ -126,7 +126,7 @@ public class AddBooks {
 			}
 		}
 		System.out.println(count);
-		if (!(s2.isEmpty()&&count1<2&&count<5)) {
+		if (s2.isEmpty()||(count1<2&&count<5)) {
 			System.out.println("作者名不能为空");
 			System.out.println("注册失败! 请重新注册请输入1               返回上一层请输入2              退出请输入3");
 			sss3 = scanner3.nextLine();

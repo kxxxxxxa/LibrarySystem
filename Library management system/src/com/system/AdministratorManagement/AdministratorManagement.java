@@ -58,15 +58,13 @@ public class AdministratorManagement {
 		String s = scanner.nextLine();
 		char c = s.charAt(0);
 		int i = (int) c - 48;
-		if (!Character.isDigit(c) || i > 3) {
+		if (!Character.isDigit(c) || i > 7) {
 			System.out.println("输入有误");
 			new AdministratorManagement().main(null);
-			;
 
 		}
 		if (s.equals("1")) {
-			new AddAdministrator();
-			AddAdministrator.main(null);
+			AllAdministratorManagement();
 		}
 		if (s.equals("2")) {
 			new AddAdministrator();
